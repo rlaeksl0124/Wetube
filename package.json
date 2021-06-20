@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rlaeksl0124/wetube-reloaded.git"
+    "url": "git+https://github.com/rlaeksl0124/wetube.git"
   },
   "scripts": {
     "dev:server": "nodemon",
@@ -13,9 +13,9 @@
   "author": "dani kim",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rlaeksl0124/wetube-reloaded/issues"
+    "url": "https://github.com/rlaeksl0124/wetube/issues"
   },
-  "homepage": "https://github.com/rlaeksl0124/wetube-reloaded#readme",
+  "homepage": "https://github.com/rlaeksl0124/wetube#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.4.1",
