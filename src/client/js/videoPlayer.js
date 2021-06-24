@@ -127,8 +127,8 @@ const handleKeyclick = (event) => {
     playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 }
 
-console.log(videoContainer.dataset.id)
 
+// 유저가 영상을 다 보면 조회수 올리기
 const handleEnded = () => {
     const { id } = videoContainer.dataset;
     fetch(`/api/videos/${id}/view`, {
