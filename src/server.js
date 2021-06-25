@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
@@ -23,7 +24,7 @@ app.use(session({
     store: MongoStore.create({mongoUrl: process.env.DB_URL})
 }))
 
-
+app.use(flash());
 app.use(localsMiddlewares);
 app.use("/", rootRouter);
 app.use("/uploads", express.static("uploads"))
