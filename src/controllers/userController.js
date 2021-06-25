@@ -112,7 +112,7 @@ export const finishGithubLogin = async(req, res) => { // step 2
 
 export const logout = (req, res) => {
     req.session.destroy();
-    req.flash("info", "Bye"); // 메시지타입과 내용
+    // req.flash("info", "Bye"); // 메시지타입과 내용
     return res.redirect("/")
 }
 

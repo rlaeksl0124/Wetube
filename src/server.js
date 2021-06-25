@@ -16,6 +16,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views")
 app.use(logger);
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json()) // string을 받아서 json으로 바꿔주는 미들웨어
 
 app.use(session({
     secret: process.env.COOKIE_SECRET,
