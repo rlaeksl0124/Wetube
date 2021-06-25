@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     password: {type:String},
     name: {type:String, required:true},
     location: String,
-    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video"}]
+    comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment"}],
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video"}],
 }); // 사용자는 여러개의 video를 가질수있어서 배열을 갖는다. 비디오와 연결됨
 
 userSchema.pre("save", async function(){
