@@ -63,13 +63,17 @@ const handleDownload = async() => {
     URL.revokeObjectURL(thumbUrl);
     URL.revokeObjectURL(videoFile);
 
+    actionBtn.disabled = false;
+    actionBtn.innerText = "Record Again";
+    actionBtn.addEventListener("click", handleStart);
 };
+
+
 
 const handleStart = () => {
     actionBtn.innerText = "Recording"; // 녹화가 시작되면
     actionBtn.disabled = true; // 단추 비활성화
     actionBtn.removeEventListener("click", handleStart);
-    actionBtn.addEventListener("click", handleStop);
     recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
     recorder.ondataavailable = (event) => { // 녹화가 종료되면 데이터가 생성됨
         videoFile = URL.createObjectURL(event.data);

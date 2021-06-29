@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 
 export const home = async(req, res) => {
@@ -8,7 +9,7 @@ export const home = async(req, res) => {
 }
 export const watch = async(req, res) => {
     const { id } = req.params;
-    const video = await Video.findById(id).populate("owner");
+    const video = await Video.findById(id).populate("owner").populate("comments");
     if(!video){
         return res.status(404).render("404", {pageTitle: "Video Not Found."})
     }
@@ -68,13 +69,11 @@ export const postUpload = async(req, res) => {
             owner: _id,
             hashtags: Video.formatHashtags(hashtags),
         });
-        console.log(newVideo)
         const user = await User.findById(_id);
         user.videos.push(newVideo._id);
         user.save();
         return res.redirect("/");
     } catch(error){
-        console.log(error);
         return res.status(400).render("upload", {pageTitle : "Upload Video", errorMessage: error._message});
     }
 }
@@ -115,8 +114,40 @@ export const registerView = async(req, res) => {
     return res.status(200)
 }
 
-export const createComment = (req, res) => {
-    console.log(req.params)
-    console.log(req.body)
-    res.end()
+export const createComment = async(req, res) => {
+    const {
+        session : { user }, // 유저의 정보
+        body : { text }, // 코멘트 내용
+        params : { id }, // 비디오의 id
+    } = req
+
+    const video = await Video.findById(id);
+    if(!video){ // video를 찾지못할경우
+        return res.sendStatus(404); // sendStatus() 는 상태코드를보내고 연결을 종료한다
+    }
+    const comment = await Comment.create({
+        text,
+        owner: user._id,
+        video: id,
+    })
+    video.comments.push(comment._id) // video에 comments에 push한다. comment.id를
+    video.save() // video 저장
+    return res.status(201).json({newCommentId: comment._id}); // commentSection.js 댓글 ID 보내기
+}
+
+export const deleteComment = async(req, res) => {
+    const { videoId, commentId } = req.params; // 댓글 ID
+    const { user : { _id }} = req.session; // 유저 ID
+    const comment = await Comment.findById(commentId);
+    const video = await Video.findById(videoId);
+    if(!comment){
+        return res.sendStatus(404);
+    }
+    if(String(comment.owner) !== String(_id)){
+        return res.sendStatus(404);
+    }
+    await Comment.findByIdAndDelete(commentId);
+    video.comments.remove(commentId);
+    video.save();
+    return res.sendStatus(200)
 }
