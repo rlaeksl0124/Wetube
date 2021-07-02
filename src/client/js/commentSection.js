@@ -38,6 +38,7 @@ const handleSubmit = async(event) => {
     event.preventDefault(); // 브라우저가 새로고침하는걸 막는다
     const textarea = form.querySelector("textarea");
     const text = textarea.value; // 댓글의 내용을 text가 받는다
+
     const videoId = videoContainer.dataset.id;
     if(text === ""){ // 유저가 text를 비어서 댓글등록하면 아무것도 리턴해주지않음
         return

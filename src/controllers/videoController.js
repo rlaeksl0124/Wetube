@@ -65,7 +65,7 @@ export const postUpload = async(req, res) => {
         const newVideo = await Video.create({
             title,
             description,
-            fileUrl: `/uploads/videos/${video[0].filename}`,
+            fileUrl: video[0].path,
             thumbUrl: `/uploads/videos/${thumb[0].filename}`,
             owner: _id,
             hashtags: Video.formatHashtags(hashtags),
@@ -127,13 +127,18 @@ export const createComment = async(req, res) => {
     if(!video){ // video를 찾지못할경우
         return res.sendStatus(404); // sendStatus() 는 상태코드를보내고 연결을 종료한다
     }
+    const users = await User.findById(user._id)
     const comment = await Comment.create({
         text,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
         owner: user._id,
         video: id,
     })
     video.comments.push(comment._id) // video에 comments에 push한다. comment.id를
     video.save() // video 저장
+    users.comment.push(comment._id);
+    users.save();
     return res.status(201).json({newCommentId: comment._id}); // commentSection.js 댓글 ID 보내기
 }
 

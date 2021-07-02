@@ -22,28 +22,33 @@ block content
 
     div.video__data
         p.video__title=video.title
-        small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+            div.video__view-createdAt
+                span.video__views 조회수 #{video.meta.views} 회 • 
+                span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+        a(href=`/users/${video.owner._id}`).video__owner
+            img.avatar(src="/" + video.owner.avatarUrl)
+            span=video.owner.name
         if String(video.owner._id) === String(loggedInUser._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+            div.video__Edit
+                a(href=`${video.id}/edit`) Edit Video
+                a(href=`${video.id}/delete`) Delete Video
 
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(ols="30", rows="10", placeholder="write a nico comment.")
-                button Add Comment
+                textarea(rows="3", placeholder="write a nico comment.")#textarea
+                button 댓글
 
     div.video__comments 
         ul 
             each comment in video.comments.reverse()
                 li.video__comment#commentContainer(data-id=comment.id)
-                    i.fas.fa-comment
-                    span  #{comment.text}
+                    a(href=`/users/${video.owner._id}`)
+                        img.avatar(src="/" + comment.avatarUrl)
+                        span.comment__name#comment__name=comment.name
+                    span.comment__text#comment__text  #{comment.text}
                     if String(comment.owner) === String(loggedInUser._id)
-                        span#delBtn  ❌
+                        span.delBtn#delBtn  ❌
 
 
 block scripts 

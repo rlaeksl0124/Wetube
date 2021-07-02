@@ -12,6 +12,9 @@ const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
+
+const textarea = document.getElementById("textarea");
+
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 let volumeValue = 0.5;
@@ -118,11 +121,15 @@ const handleClickPlay = () => {
 
 // 스페이스바 클릭했을때 동영상 재생
 const handleKeyclick = (event) => {
-    const { key } = event
-    if(key === " " && video.paused){  
-        video.play();
-    } else if(key === " " && video.played){
-        video.pause();
+    if(event.target !== textarea){
+        event.preventDefault();
+        video.focus();
+        const { key } = event
+        if(key === " " && video.paused){  
+            video.play();
+        } else if(key === " " && video.played){
+            video.pause();
+        }
     }
     playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 }

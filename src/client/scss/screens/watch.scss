@@ -1,36 +1,122 @@
 .video__data {
-  margin-top: 20px;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
+  margin-left: 15px;
+
   .video__title {
     font-size: 26px;
     margin-bottom: 5px;
   }
-  .video__createdAt {
-    font-size: 12px;
+  .video__view-createdAt {
+    margin-top: 10px;
+    font-size: 13px;
   }
   .video__owner {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-top: 1px solid rgba($color: #ffffff, $alpha: 0.3);
+    border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.3);
+    margin-top: 20px;
+    padding: 20px 0px;
     margin-bottom: 5px;
     font-size: 14px;
-    a {
-      color: cornflowerblue;
-      text-decoration: underline;
+
+    color: cornflowerblue;
+    text-decoration: underline;
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
     }
+
+    span {
+      font-size: 16px;
+    }
+  }
+  .video__Edit {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px 0px;
+      width: 130px;
+      height: 35px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: rgba($color: #ffffff, $alpha: 0.3);
+      color: white;
+      font-weight: 500;
+      transition: ease-in-out 0.2s;
+    }
+    a:hover {
+      background-color: rgba($color: #ffffff, $alpha: 0.9);
+      color: black;
+    }
+  }
+}
+
+.video__comment-form {
+  textarea {
+    resize: none;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  button {
+    background-color: rgba($color: #ffffff, $alpha: 0.9);
+    color: rgba($color: #000000, $alpha: 0.8);
+    border: none;
   }
 }
 
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
-  width: 100%;
+
+  width: 70%;
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
     padding: 10px;
     border-radius: 9999px;
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
     margin-bottom: 10px;
+    transition: ease-in-out 0.2s;
+    a {
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    .comment__name {
+      font-weight: 600;
+    }
+    .comment__text {
+      margin: 0 20px;
+    }
+    .delBtn {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  }
+  .video__comment:hover {
+    background-color: rgba($color: #ffffff, $alpha: 0.9);
+    color: black;
   }
 }
