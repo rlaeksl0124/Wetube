@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rlaeksl0124/wetube.git"
+    "url": "git+https://github.com/rlaeksl0124/Wetube.git"
   },
   "scripts": {
     "start": "node build/init.js",
