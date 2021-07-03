@@ -59,7 +59,6 @@ export const getUpload = (req, res) => {
 export const postUpload = async(req, res) => {
     const { user: {_id} } = req.session;
     const {video, thumb} = req.files;
-    console.log("video, thumb",video, thumb);
     const {title, description, hashtags} = req.body;
     try{
         const newVideo = await Video.create({
@@ -73,7 +72,6 @@ export const postUpload = async(req, res) => {
         const user = await User.findById(_id);
         user.videos.push(newVideo._id);
         user.save();
-        console.log("newvideo",newVideo)
         return res.redirect("/");
     } catch(error){
         return res.status(400).render("upload", {pageTitle : "Upload Video", errorMessage: error._message});
