@@ -47,7 +47,7 @@ export const publicOnlyMiddleware = (req, res, next) => {
         req.flash("error", "Not authorized"); // 메시지타입과 내용
         return res.redirect("/") // 로그인상태일경우 home 으로 이동
     }
-}
+};
 
 export const avatarUpload = multer({
     dest: "uploads/avatars/",
