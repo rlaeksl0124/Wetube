@@ -2,7 +2,7 @@ extends base
 
 block content 
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn 
@@ -26,7 +26,7 @@ block content
                 span.video__views 조회수 #{video.meta.views} 회 • 
                 span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
         a(href=`/users/${video.owner._id}`).video__owner
-            img.avatar(src="/" + video.owner.avatarUrl)
+            img.avatar(src=video.owner.avatarUrl)
             span=video.owner.name
         if String(video.owner._id) === String(loggedInUser._id)
             div.video__Edit
@@ -44,7 +44,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment#commentContainer(data-id=comment.id)
                     a(href=`/users/${video.owner._id}`)
-                        img.avatar(src="/" + comment.avatarUrl)
+                        img.avatar(src=comment.avatarUrl)
                         span.comment__name#comment__name=comment.name
                     span.comment__text#comment__text  #{comment.text}
                     if String(comment.owner) === String(loggedInUser._id)
