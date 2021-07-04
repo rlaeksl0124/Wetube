@@ -9,10 +9,16 @@ const s3 = new aws.S3({
     }
 });
 
-const multerUploader = multerS3({
+const s3ImageUploader = multerS3({
     s3: s3,
+    bucket: 'wetube-dani/images', // 아마존 AWS에서 생성한 버킷이름
     acl: 'public-read', // 누구나 우리의 파일을 읽을수있게 설정
-    bucket: 'wetube-dani' // 아마존 AWS에서 생성한 버킷이름
+});
+
+const s3VideoUploader = multerS3({
+    s3: s3,
+    bucket: 'wetube-dani/videos', // 아마존 AWS에서 생성한 버킷이름
+    acl: 'public-read', // 누구나 우리의 파일을 읽을수있게 설정
 });
 
 export const localsMiddlewares = (req, res, next) => {
@@ -45,7 +51,7 @@ export const avatarUpload = multer({
     limits: {
         fileSize: 3000000,
     },
-    storage: multerUploader
+    storage: s3ImageUploader
 }); // dest: 저장하고싶은 파일의경로
 
 export const videoUpload = multer({
@@ -53,5 +59,5 @@ export const videoUpload = multer({
     limits: {
         fileSize: 50000000,
     },
-    storage: multerUploader
+    storage: s3VideoUploader
 });
