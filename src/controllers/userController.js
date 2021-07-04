@@ -129,8 +129,12 @@ export const postEdit = async (req, res) => {
         body: { name, email, username, location }, // form에있는정보 가져오기
         file,
     } = req;
+    const isHeroku = process.env.NODE_ENV === "production"; // Heroku가 production(실제개발모드)이라면
     const updateUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? file.location : avatarUrl,
+        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
+        // file이있고 isHeroku일경우, file.location을 본다 
+        // isHeroku가 아닐경우 file.path를 본다. 
+        // file이없으면 avatarUrl을 본다
         name,
         email,
         username,

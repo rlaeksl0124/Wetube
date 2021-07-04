@@ -9,6 +9,8 @@ const s3 = new aws.S3({
     }
 });
 
+const isHeroku = process.env.NODE_ENV === "production" // Heroku가 production 이라면
+
 const s3ImageUploader = multerS3({
     s3: s3,
     bucket: 'wetube-dani/images', // 아마존 AWS에서 생성한 버킷이름
@@ -25,6 +27,7 @@ export const localsMiddlewares = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.siteName = "Wetube";
     res.locals.loggedInUser = req.session.user || {};
+    req.locals.isHeroku = isHeroku;
     next();
 }
 
@@ -51,7 +54,8 @@ export const avatarUpload = multer({
     limits: {
         fileSize: 3000000,
     },
-    storage: s3ImageUploader
+    storage: isHeroku ? s3ImageUploader : undefined,
+    // heroku가 실제개발이라면 이미지를 업로더하고 그렇지않을경우 업로더안함
 }); // dest: 저장하고싶은 파일의경로
 
 export const videoUpload = multer({
@@ -59,5 +63,5 @@ export const videoUpload = multer({
     limits: {
         fileSize: 50000000,
     },
-    storage: s3VideoUploader
+    storage: isHeroku ? s3VideoUploader : undefined,
 });
