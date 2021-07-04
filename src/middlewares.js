@@ -27,7 +27,7 @@ export const localsMiddlewares = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.siteName = "Wetube";
     res.locals.loggedInUser = req.session.user || {};
-    req.locals.isHeroku = isHeroku;
+    res.locals.isHeroku = isHeroku;
     next();
 }
 
