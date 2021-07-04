@@ -15,7 +15,7 @@ const s3ImageUploader = multerS3({
     s3: s3,
     bucket: 'wetube-dani/images', // 아마존 AWS에서 생성한 버킷이름
     acl: 'public-read', // 누구나 우리의 파일을 읽을수있게 설정
-});
+})
 
 const s3VideoUploader = multerS3({
     s3: s3,
