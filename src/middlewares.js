@@ -9,7 +9,7 @@ const s3 = new aws.S3({
     }
 });
 
-const isHeroku = process.env.NODE_ENV === "production" // Heroku가 production 이라면
+const isHeroku = process.env.NODE_ENV === "production"; // Heroku가 production 이라면
 
 const s3ImageUploader = multerS3({
     s3: s3,
