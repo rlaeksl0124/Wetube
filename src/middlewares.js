@@ -7,13 +7,13 @@ const s3 = new aws.S3({
         accessKeyId: process.env.AWS_ID, // AWS에서 생성한 KEY
         secretAccessKey: process.env.AWS_SECRET // AWS에서 생성한 비밀키
     }
-})
+});
 
 const multerUploader = multerS3({
     s3: s3,
     acl: 'public-read', // 누구나 우리의 파일을 읽을수있게 설정
     bucket: 'wetube-dani' // 아마존 AWS에서 생성한 버킷이름
-})
+});
 
 export const localsMiddlewares = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -46,7 +46,7 @@ export const avatarUpload = multer({
         fileSize: 3000000,
     },
     storage: multerUploader
-}) // dest: 저장하고싶은 파일의경로
+}); // dest: 저장하고싶은 파일의경로
 
 export const videoUpload = multer({
     dest: "uploads/videos/",
@@ -54,4 +54,4 @@ export const videoUpload = multer({
         fileSize: 50000000,
     },
     storage: multerUploader
-})
+});
