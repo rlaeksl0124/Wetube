@@ -20,7 +20,7 @@ header
                         else 
                             if isHeroku === false
                                 img.header__avatar(src="/"+loggedInUser.avatarUrl)
-                            else if loggedInUser.avatarUrl.includes("git")
+                            else
                                 img.header__avatar(src=loggedInUser.avatarUrl)
             else
                 li 
