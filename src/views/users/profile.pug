@@ -8,8 +8,9 @@ block content
         else 
             img(src=user.avatarUrl).avatar
         h3=user.name
+    
     div.video-grid
         each video in user.videos 
             +video(video)
         else
-            span.empty_message No videos found.
+            span.empty_message 비디오가 존재하지 않습니다.

@@ -1,25 +1,28 @@
 .empty_message {
-    margin-bottom: 50px;
-    font-size: 18px;
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  margin: 150px 280px;
+  font-size: 18px;
+  width: 100%;
 }
 
 .video-grid {
-    display: grid;
-    gap: 50px;
-    grid-template-columns: repeat(4, 1fr);
-
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .auth-switch {
-    text-align: center;
-    margin-top: 40px;
-    a {
-        text-decoration: underline;
-    }
+  text-align: center;
+  margin-top: 40px;
+  a {
+    text-decoration: underline;
+  }
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }

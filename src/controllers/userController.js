@@ -184,5 +184,6 @@ export const see = async (req, res) => {
     if (!user) { // 유저를 찾지못할경우 status 상태표시를 404설정후 404페이지를 렌더해준다
         return res.status(404).render("404", { pageTitle: "User not Found." })
     }
+    console.log(user)
     return res.render("users/profile", { pageTitle: user.name, user })
 }
