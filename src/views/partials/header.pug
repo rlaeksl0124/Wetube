@@ -17,6 +17,8 @@ header
                     a(href=`/users/${loggedInUser._id}`)
                         if loggedInUser.avatarUrl === ""
                             span 😀
+                        else if isHeroku === false
+                            img.header__avatar(src="/"+loggedInUser.avatarUrl)
                         else 
                             img.header__avatar(src=loggedInUser.avatarUrl)
             else
