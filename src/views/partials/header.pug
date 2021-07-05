@@ -17,12 +17,11 @@ header
                     a(href=`/users/${loggedInUser._id}`)
                         if loggedInUser.avatarUrl === ""
                             span 😀
-                        else
-                            if insHeroku === true || loggedInUser.avatarUrl.includes("github")
-                                img.header__avatar(src=loggedInUser.avatarUrl)
-                            else
+                        else 
+                            if isHeroku === false
                                 img.header__avatar(src="/"+loggedInUser.avatarUrl)
-                            
+                            else if loggedInUser.avatarUrl.includes("git")
+                                img.header__avatar(src=loggedInUser.avatarUrl)
             else
                 li 
                     a(href="/login") Login
