@@ -142,13 +142,8 @@ export const finishKakaoLogin = async (req, res) => {
                 Authorization: `Bearer ${access_token}`,
             },
         })).json();
-        const existingUser = await User.findOne({email: userData.kakao_account.email})
-        if(existingUser){
-            req.session.loggedIn = true;
-            req.session.user = existingUSer;
-            return res.redirect("/")
-        } else {
-            // 유저생성
+        let user = await User.findOne({email: userData.kakao_account.email})
+        if(!user){
             const user = await User.create({
                 avatarUrl: userData.properties.profile_image,
                 name : userData.properties.nickname,
@@ -158,11 +153,10 @@ export const finishKakaoLogin = async (req, res) => {
                 socialOnly: true,
                 location: "",
             });
-            req.session.loggedIn = true;
-            req.session.user = user;
-            console.log(user);
-            return res.redirect("/")
         }
+        req.session.loggedIn = true;
+        req.session.user = user;
+        return res.redirect("/")
     } else{
         return res.redirect("/login");
     }
