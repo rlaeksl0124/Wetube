@@ -150,6 +150,7 @@ export const finishKakaoLogin = async (req, res) => {
         } else {
             // 유저생성
             const user = await User.create({
+                avatarUrl: userData.properties.profile_image,
                 name : userData.properties.nickname,
                 username : userData.properties.nickname,
                 email : userData.kakao_account.email,
