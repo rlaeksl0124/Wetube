@@ -147,7 +147,7 @@ const handleEnded = () => {
 playBtn.addEventListener("click", handlePlayClick); // 클릭시 재생/정지 이벤트 발생
 muteBtn.addEventListener("click", handleMute); // 클릭시 음소거 / 비음소거 이벤트
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadeddata", handleLoadedMetadata); // 비디오가 로드된 시점에 이벤트 발생
+video.addEventListener("loadedmetadata", handleLoadedMetadata); // 비디오가 로드된 시점에 이벤트 발생
 video.addEventListener("timeupdate", handleTimeUpdate); // 비디오의 시간이 변할때마다 이벤트 발생
 video.addEventListener("ended", handleEnded); // 비디오 재생 완료 여부를 Boolean 값으로 반환합니다.
 timeline.addEventListener("input", handleTimelineChange); // 비디오 타임라인 바
