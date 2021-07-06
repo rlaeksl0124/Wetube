@@ -5,7 +5,7 @@ block content
         if isHeroku === false
             video(src="/"+video.fileUrl)(data-id=video._id)
         else
-            video(src=video.fileUrl)
+            video(src=video.fileUrl)(data-id=video._id)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn 

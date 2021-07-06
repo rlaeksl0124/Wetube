@@ -59,8 +59,6 @@ const formatTime = (seconds) => new Date(seconds * 1000).toISOString().substr(14
 
 // 비디오 재생시간
 const handleLoadedMetadata = () => { // 비디오 총시간
-    const {id} = video.dataset;
-    console.log(video)
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration); // timeline의 최대값은 비디오의 총시간이다
 }
