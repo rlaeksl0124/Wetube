@@ -1,5 +1,5 @@
 import express from "express";
-import { getEdit, postEdit, logout, see, startGithubLogin, finishGithubLogin, getChangePassword, postChangePassword } from "../controllers/userController";
+import { getEdit, postEdit, logout, see, startGithubLogin, finishGithubLogin, getChangePassword, postChangePassword, startKakaoLogin, finishKakaoLogin } from "../controllers/userController";
 import { avatarUpload, protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
 
 
@@ -18,6 +18,9 @@ userRouter
     .post(postChangePassword);
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
+
+userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
+userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 
 userRouter.get("/:id", see);
 

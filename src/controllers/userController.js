@@ -110,6 +110,65 @@ export const finishGithubLogin = async (req, res) => { // step 2
     }
 }
 
+export const startKakaoLogin = async (req, res) => {
+    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    const client_id = process.env.KAKAO_API;
+    const redirect_uri= `${process.env.LOCALHOST}/users/kakao/finish`;
+    const finalUrl = `${baseUrl}?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code`;
+    return res.redirect(finalUrl)
+}
+
+export const finishKakaoLogin = async (req, res) => {
+    const baseUrl = "https://kauth.kakao.com/oauth/token";
+    const config = {
+        grant_type: "authorization_code",
+        client_id: process.env.KAKAO_API,
+        redirect_uri: `${process.env.LOCALHOST}/users/kakao/finish`,
+        code: req.query.code,
+    }
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`
+    const tokenRequest = await(await fetch(finalUrl, {
+        method:"POST",
+        headers:{
+            Accept: "application/json",
+        }
+    })).json();
+    if("access_token" in tokenRequest){
+        const {access_token} = tokenRequest;
+        const apiUrl = "https://kapi.kakao.com/v2/user/me";
+        const userData = await(await fetch(apiUrl, {
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        })).json();
+        const existingUser = await User.findOne({email: userData.kakao_account.email})
+        if(existingUser){
+            req.session.loggedIn = true;
+            req.session.user = existingUSer;
+            return res.redirect("/")
+        } else {
+            // 유저생성
+            const user = await User.create({
+                name : userData.properties.nickname,
+                username : userData.properties.nickname,
+                email : userData.kakao_account.email,
+                password: "",
+                socialOnly: true,
+                location: "",
+            });
+            req.session.loggedIn = true;
+            req.session.user = user;
+            console.log(user);
+            return res.redirect("/")
+        }
+    } else{
+        return res.redirect("/login");
+    }
+}
+
+
+
 export const logout = (req, res) => {
     req.session.destroy();
     // req.flash("info", "Bye"); // 메시지타입과 내용
